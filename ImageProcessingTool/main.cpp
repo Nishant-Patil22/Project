@@ -14,14 +14,14 @@ void displayImage(const cv::Mat& image, const std::string& windowTitle) {
     cv::waitKey(0);
 }
 
-// Function for image filtering (Step 4)
+// Function for image filtering 
 cv::Mat applyFilter(const cv::Mat& image, int kernelSize) {
     cv::Mat filteredImage;
     cv::GaussianBlur(image, filteredImage, cv::Size(kernelSize, kernelSize), 0);
     return filteredImage;
 }
 
-// Function for image transformation (Step 5)
+// Function for image transformation 
 cv::Mat applyTransformation(const cv::Mat& image, double scale, double rotationAngle, bool flipHorizontal) {
     cv::Mat transformedImage = image.clone();
     cv::resize(transformedImage, transformedImage, cv::Size(), scale, scale);
@@ -33,7 +33,7 @@ cv::Mat applyTransformation(const cv::Mat& image, double scale, double rotationA
     return transformedImage;
 }
 
-// Function for basic image editing tools (Step 6)
+// Function for basic image editing tools 
 cv::Mat applyBasicEditing(const cv::Mat& image, int brightness, double contrast, double saturation) {
     cv::Mat editedImage = image.clone();
     editedImage.convertTo(editedImage, -1, contrast, brightness);
@@ -71,7 +71,7 @@ cv::Mat concatImagesVertically(const std::vector<cv::Mat>& images) {
     return collage;
 }
 
-// Function for additional image processing operations (Step 7)
+// Function for additional image processing operations 
 cv::Mat applyAdditionalProcessing(const cv::Mat& image, int edgeThreshold, int thresholdValue) {
     cv::Mat processedImage, edgesImage, thresholdedImage, contourImage;
     cv::cvtColor(image, processedImage, cv::COLOR_BGR2GRAY);
@@ -99,7 +99,7 @@ cv::Mat applyAdditionalProcessing(const cv::Mat& image, int edgeThreshold, int t
     return collage;
 }
 
-// Function for image blending and masking (Step 8)
+// Function for image blending and masking 
 cv::Mat applyBlendingAndMasking(const cv::Mat& image1, const cv::Mat& image2, double alpha) {
     // Ensure both images have the same size and data type
     cv::Mat image1_resized, image2_resized;
@@ -113,7 +113,7 @@ cv::Mat applyBlendingAndMasking(const cv::Mat& image1, const cv::Mat& image2, do
     return blendedImage;
 }
 
-// Function for image feature detection (Step 9)
+// Function for image feature detection 
 cv::Mat applyFeatureDetection(const cv::Mat& image) {
     cv::Ptr<cv::SIFT> sift = cv::SIFT::create();
     std::vector<cv::KeyPoint> keypoints;
@@ -123,7 +123,7 @@ cv::Mat applyFeatureDetection(const cv::Mat& image) {
     return featureImage;
 }
 
-// Function for object detection (Step 10)
+// Function for object detection
 cv::Mat applyObjectDetection(const cv::Mat& image) {
     // Load the Haar Cascade Classifier for face detection
     cv::CascadeClassifier faceCascade;
@@ -149,7 +149,7 @@ cv::Mat applyObjectDetection(const cv::Mat& image) {
     return resultImage;
 }
 
-// Function for image segmentation (Step 11)
+// Function for image segmentation 
 cv::Mat applyImageSegmentation(const cv::Mat& image, int numClusters) {
     cv::Mat reshapedImage = image.reshape(1, image.cols * image.rows);
     reshapedImage.convertTo(reshapedImage, CV_32F);
@@ -170,7 +170,7 @@ cv::Mat applyImageSegmentation(const cv::Mat& image, int numClusters) {
     return segmented_image;
 }
 
-// Function for image registration using SIFT (Step 12)
+// Function for image registration using SIFT 
 cv::Mat applyImageRegistration(const cv::Mat& image1, const cv::Mat& image2) {
     cv::Ptr<cv::Feature2D> sift = cv::SIFT::create();
 
@@ -201,7 +201,7 @@ cv::Mat applyImageRegistration(const cv::Mat& image1, const cv::Mat& image2) {
     return matchedImage;
 }
 
-// Function to save the processed image (Step 13)
+// Function to save the processed image 
 bool saveProcessedImage(const cv::Mat& processedImage, const std::string& outputFilePath) {
     if (processedImage.empty()) {
         std::cout << "Error: Processed image is empty." << std::endl;
@@ -223,8 +223,16 @@ bool saveProcessedImage(const cv::Mat& processedImage, const std::string& output
 
 int main() {
 
-    cv::Mat image1 = cv::imread("D:/PProject/ImageProcessingTool/ImageProcessingTool/game.jpg");
-    cv::Mat image2 = cv::imread("D:/Resume/passport.jpg");
+    // Prompt the user to select images
+    std::string image1Path, image2Path;
+    std::cout << "Enter the path to the first image: ";
+    std::cin >> image1Path;
+    std::cout << "Enter the path to the second image: ";
+    std::cin >> image2Path;
+
+    // Read the selected images
+    cv::Mat image1 = cv::imread(image1Path);
+    cv::Mat image2 = cv::imread(image2Path);
 
     // Check if the images were loaded successfully
     if (image1.empty() || image2.empty()) {
@@ -232,34 +240,34 @@ int main() {
         return -1;
     }
 
-    // Perform image filtering (Step 4)
+    // Perform image filtering 
     cv::Mat filteredImage = applyFilter(image1, 5);
 
-    // Perform image transformation (Step 5)
+    // Perform image transformation 
     cv::Mat transformedImage = applyTransformation(image2, 0.7, 30.0, true);
 
-    // Perform basic image editing tools (Step 6)
+    // Perform basic image editing tools 
     cv::Mat editedImage = applyBasicEditing(image1, 50, 1.2, 0.8);
 
-    // Perform additional image processing operations (Step 7)
+    // Perform additional image processing operations 
     cv::Mat processedImage = applyAdditionalProcessing(image2, 50, 100);
 
-    // Perform image blending and masking (Step 8)
+    // Perform image blending and masking 
     cv::Mat blendedImage = applyBlendingAndMasking(image1, image2, 0.5);
 
-    // Perform image feature detection (Step 9)
+    // Perform image feature detection 
     cv::Mat featureImage = applyFeatureDetection(image1);
 
-    // Perform object detection (Step 10)
+    // Perform object detection 
     cv::Mat detectedImage = applyObjectDetection(image2);
 
-    // Perform image segmentation (Step 11)
+    // Perform image segmentation 
     cv::Mat segmentedImage = applyImageSegmentation(image1, 4);
 
-    // Perform image registration using SIFT (Step 12)
+    // Perform image registration using SIFT 
     cv::Mat registeredImage = applyImageRegistration(image1, image2);
 
-    // Step 2: Save the processed image to a file
+    // Save the processed image to a file
     std::string outputFilePath = "D:/PProject/ImageProcessingTool/ImageProcessingTool/images/processed_image1.jpg";
     saveProcessedImage(processedImage, outputFilePath);
 
