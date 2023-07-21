@@ -1,0 +1,17 @@
+﻿  main.cpp
+D:\PProject\ImageProcessingTool\ImageProcessingTool\main.cpp(28,75): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=float
+          ]
+D:\PProject\ImageProcessingTool\ImageProcessingTool\main.cpp(28,46): warning C4244: 'argument': conversion from 'double' to '_Tp', possible loss of data
+          with
+          [
+              _Tp=float
+          ]
+  Generating code
+  105 of 314 functions (33.4%) were compiled, the rest were copied from previous compilation.
+    87 functions were new in current compilation
+    45 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ImageProcessingTool.vcxproj -> D:\PProject\ImageProcessingTool\x64\Release\ImageProcessingTool.exe
